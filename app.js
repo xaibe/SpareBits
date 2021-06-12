@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 const http = require('http');
 const server = http.createServer(app);
 require('dotenv').config();
@@ -11,8 +12,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser')
 
 
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json())
+app.use(express.urlencoded({extended: false}));
+app.use(express.json())
 
 //bodyparser is deprecated
 // app.use(bodyParser.urlencoded({extended: true}));
@@ -42,7 +43,8 @@ fs.readdirSync(__dirname + "/models").forEach(function(file) {
 });
 
 // in case you want to serve images 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, './Public')));
+//app.use(express.static("public"));
 
 app.get('/',  function (req, res) {
   res.status(200).send({
