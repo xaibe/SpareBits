@@ -9,14 +9,21 @@ const accessControls = require("./middleware/access-controls");
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser')
-app.use(
-    bodyParser.urlencoded({
-      extended: true
-    })
-  );
+
+
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json())
+
+//bodyparser is deprecated
+// app.use(bodyParser.urlencoded({extended: true}));
+
+// app.use(bodyParser.json()); // to support JSON-encoded bodies
+
+
   
-  app.use(bodyParser.json()); // to support JSON-encoded bodies
+//   app.use(express.json()); // to support JSON-encoded bodies
   
+
 // Requiring Routes
 
 const UsersRoutes = require('./routes/users.routes');
@@ -29,6 +36,7 @@ mongoose.connect(mongoCon,{ useNewUrlParser: true,useCreateIndex: true, useUnifi
 
 
 const fs = require('fs');
+const booksModel = require('./models/books.model');
 fs.readdirSync(__dirname + "/models").forEach(function(file) {
     require(__dirname + "/models/" + file);
 });

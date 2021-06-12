@@ -17,25 +17,35 @@ const User = new Schema({
         sparse:true
 
     },
+
+    mnumber: {
+        type: Number
+    },
+
+    address:{
+        type: String
+    },
+
      password: {
         type: String
     },
     role: {
         type: String
     },
-    department: {
-        type: String
-    },
-    designation: {
-        type: String
-    },
+    
     avatar: {
         type: String
     },
     avatar_ext: {
         type: String
     },
-  
+    imageUrl: {
+        type:String,
+    },
+    verifycode: {
+        type: String,
+        default: 0
+    },
     is_deleted: {
         type: Number,
         default: 0
@@ -44,11 +54,11 @@ const User = new Schema({
 
 User.plugin(mongoosePaginate);
 
-User.methods.toJSON = function() {
-    var obj = this.toObject();
-    delete obj.password;
-    return obj;
-   }
+//User.methods.toJSON = function() {
+  //  var obj = this.toObject();
+    //delete obj.password;
+    //return obj;
+  // }
 // User.index({'$**': 'text'});
 
 module.exports = mongoose.model("User", User);
